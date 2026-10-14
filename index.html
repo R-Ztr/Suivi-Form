@@ -167,6 +167,26 @@ details.ux-fold[open]>summary{border-bottom:1px solid #263641;color:var(--b)}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card,.bt-mini,.ex-art,.p,.fab{transition:none}}
 
+
+/* Muscle recovery overview */
+.recovery-overview{margin-top:18px;padding-top:17px;border-top:1px solid #293944}
+.recovery-overview h3{font-size:16px;margin:4px 0 0;letter-spacing:-.02em}
+.recovery-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}
+.recovery-card{display:flex;min-width:0;flex-direction:column;align-items:stretch;gap:7px;padding:11px;border:1px solid #2a3945;border-radius:13px;background:linear-gradient(145deg,#151f28,#0f171f);color:var(--ink);text-align:left;cursor:pointer;transition:border-color .16s,transform .16s,background .16s}
+.recovery-card:hover{border-color:#586b77;transform:translateY(-1px)}
+.recovery-card.selected{border-color:#c5ff4a9c;background:linear-gradient(145deg,#1c2b23,#111b20);box-shadow:inset 0 0 0 1px #c5ff4a12}
+.recovery-card-top{display:flex;align-items:center;justify-content:space-between;gap:5px}
+.recovery-card-top b{font-size:12px;line-height:1.2}
+.recovery-dot{display:block;flex:0 0 7px;width:7px;height:7px;border-radius:50%;background:#75818a}
+.recovery-card.ready .recovery-dot{background:#b9ef4b;box-shadow:0 0 9px #b9ef4b33}
+.recovery-card.rest .recovery-dot{background:#ffb65c}
+.recovery-card.window .recovery-dot{background:#6db9e8}
+.recovery-card strong{font-size:13px;line-height:1.25}
+.recovery-card small{font-size:10px;line-height:1.35;color:var(--muted)}
+.recovery-card-foot{padding-top:6px;border-top:1px solid #293944;font-size:10px;color:var(--muted)}
+.recovery-footnote{font-size:10px;line-height:1.5;color:var(--muted);margin:10px 0 0}
+@media(max-width:900px){.recovery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:480px){.recovery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.recovery-card{padding:10px;gap:6px}.recovery-card strong{font-size:12px}.recovery-card small,.recovery-card-foot{font-size:9px}}
 </style>
 </head>
 <body><div id="app"></div><div id="toast" role="status" aria-live="polite"></div><div id="rest" aria-live="polite"></div>
@@ -468,13 +488,15 @@ function bodyTracker(){
  musclePath('Mollets','M95 244 L111 244 L104 286 L91 286 Z')+musclePath('Mollets','M129 244 L145 244 L149 286 L136 286 Z')+
  '</g><text x="120" y="319" text-anchor="middle" class="body-svg-caption">ZONES SCHÉMATIQUES</text></svg>';
  }
- const options=groups.map(g=>'<button type="button" class="muscle-chip'+selected(g)+'" onclick="selectMuscle(\''+g+'\')">'+g+'</button>').join('');
+ const options=groups.map(g=>'<button type="button" class="muscle-chip'+selected(g)+'" data-muscle="'+g+'" onclick="selectMuscle(this.dataset.muscle)">'+g+'</button>').join('');
+ const recoveryCards=groups.map(g=>{const inf=MUSCLE_RECOVERY[g],items=S.sets.filter(x=>grpOf(x.ex)===g&&x.d).sort((a,b)=>b.d.localeCompare(a.d)),recent=items[0],d=recent?Math.max(0,Math.floor((new Date(today+'T12:00:00')-new Date(recent.d+'T12:00:00'))/86400000)):null,h=d===null?null:d*24,st=h===null?'À suivre':h<inf.min?'Repos':h<inf.max?'Récupération':'Disponible',tone=h===null?'unknown':h<inf.min?'rest':h<inf.max?'window':'ready';return '<button type="button" class="recovery-card '+tone+(g===selectedMuscle?' selected':'')+'" data-muscle="'+g+'" onclick="selectMuscle(this.dataset.muscle)"><span class="recovery-card-top"><b>'+g+'</b><i class="recovery-dot"></i></span><strong>'+st+'</strong><small>'+(recent?'Dernière séance · '+fd(recent.d):'Pas encore de séance')+'</small><span class="recovery-card-foot">'+(h===null?'Enregistre une séance':h<inf.min?'Repère : '+inf.min+' h':h<inf.max?'Repère : '+inf.max+' h':'Repère atteint')+'</span></button>'}).join('');
+
  let recoveryText='';
  if(elapsed===null)recoveryText='<div class="recovery-state neutral"><b>'+status+'</b><span>Enregistre une séance dans le carnet pour afficher le temps depuis le dernier entraînement de ce groupe.</span></div>';
  else if(elapsed<info.min)recoveryText='<div class="recovery-state caution"><b>'+status+'</b><span>Dernière séance enregistrée : '+fd(last.d)+' · environ '+(elapsed===0?'moins de 24 h':elapsed+' h')+' écoulées. Repère minimal : '+info.min+' h (environ '+remaining+' h supplémentaires).</span></div>';
  else if(elapsed<info.max)recoveryText='<div class="recovery-state neutral"><b>'+status+'</b><span>Dernière séance : '+fd(last.d)+' · environ '+elapsed+' h écoulées. Privilégie une séance adaptée à tes sensations.</span></div>';
  else recoveryText='<div class="recovery-state ready"><b>'+status+'</b><span>Dernière séance : '+fd(last.d)+' · environ '+elapsed+' h écoulées. Le repère indicatif est atteint ; cela ne garantit pas à lui seul une récupération complète.</span></div>';
- return '<section class="card body-tracker"><div class="split"><div><h2>Body Tracker musculaire</h2><p class="mu">Sélectionne une zone sur le corps ou dans la liste.</p></div><span class="tag">Interactif</span></div><div class="body-layout"><div class="body-visual-panel"><div class="actions body-view-toggle"><button class="p sm '+(muscleBodyView==='front'?'':'secondary')+'" onclick="muscleBodyView=\'front\';render()">Face</button><button class="p sm '+(muscleBodyView==='back'?'':'secondary')+'" onclick="muscleBodyView=\'back\';render()">Dos</button></div>'+svg+'<div class="body-legend"><span><i></i>Groupe sélectionné</span><span>Toucher une zone pour voir ses infos</span></div></div><div class="body-detail"><div class="body-kicker">GROUPE MUSCULAIRE</div><h3>'+selectedMuscle+'</h3><div class="rest-range"><span>Repos indicatif</span><strong>'+info.min+(info.max!==info.min?'–'+info.max:'')+' h</strong></div>'+recoveryText+'<p class="body-tip">'+info.tip+'</p><div class="body-kicker">CHOISIR UN MUSCLE</div><div class="muscle-chip-list">'+options+'</div></div></div><p class="body-disclaimer">Estimation basée sur les séances enregistrées et le groupe principal de l’exercice. Le travail indirect, l’intensité, le sommeil, les courbatures et ton état général ne sont pas entièrement mesurés. Ne force pas sur une zone douloureuse ou encore très fatiguée.</p></section>';
+ return '<section class="card body-tracker"><div class="split"><div><h2>Body Tracker musculaire</h2><p class="mu">Sélectionne une zone sur le corps ou dans la liste.</p></div><span class="tag">Interactif</span></div><div class="body-layout"><div class="body-visual-panel"><div class="actions body-view-toggle"><button class="p sm '+(muscleBodyView==='front'?'':'secondary')+'" onclick="muscleBodyView=\'front\';render()">Face</button><button class="p sm '+(muscleBodyView==='back'?'':'secondary')+'" onclick="muscleBodyView=\'back\';render()">Dos</button></div>'+svg+'<div class="body-legend"><span><i></i>Groupe sélectionné</span><span>Toucher une zone pour voir ses infos</span></div></div><div class="body-detail"><div class="body-kicker">GROUPE MUSCULAIRE</div><h3>'+selectedMuscle+'</h3><div class="rest-range"><span>Repos indicatif</span><strong>'+info.min+(info.max!==info.min?'–'+info.max:'')+' h</strong></div>'+recoveryText+'<p class="body-tip">'+info.tip+'</p><div class="body-kicker">CHOISIR UN MUSCLE</div><div class="muscle-chip-list">'+options+'</div></div></div><div class="recovery-overview"><div class="split"><div><div class="body-kicker">VUE D’ENSEMBLE</div><h3>Récupération des muscles</h3></div><span class="tag">${groups.length} groupes</span></div><div class="recovery-grid">'+recoveryCards+'</div><p class="recovery-footnote">Repères indicatifs calculés à partir de la date des séances enregistrées, pas de l’heure exacte ni de la récupération réelle.</p></div><p class="body-disclaimer">Estimation basée sur les séances enregistrées et le groupe principal de l’exercice. Le travail indirect, l’intensité, le sommeil, les courbatures et ton état général ne sont pas entièrement mesurés. Ne force pas sur une zone douloureuse ou encore très fatiguée.</p></section>';
 }
 
 let guideIndex=0;
