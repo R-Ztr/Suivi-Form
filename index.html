@@ -187,6 +187,19 @@ details.ux-fold[open]>summary{border-bottom:1px solid #263641;color:var(--b)}
 .recovery-footnote{font-size:10px;line-height:1.5;color:var(--muted);margin:10px 0 0}
 @media(max-width:900px){.recovery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:480px){.recovery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.recovery-card{padding:10px;gap:6px}.recovery-card strong{font-size:12px}.recovery-card small,.recovery-card-foot{font-size:9px}}
+
+/* Detailed anatomy illustration polish */
+.body-visual-panel{background:radial-gradient(ellipse at 50% 20%,#1d2c35 0%,#111a22 54%,#0d141b 100%);border-color:#30414e;box-shadow:inset 0 1px 0 #ffffff05}
+.body-map{max-width:290px;overflow:visible}
+.body-base{fill:#293744;stroke:#71828d;stroke-width:1.35;stroke-linejoin:round}
+.body-zone{fill:#405664;stroke:#111b23;stroke-width:1.25;vector-effect:non-scaling-stroke}
+.body-zone:hover,.body-zone:focus{fill:#7db4a8;filter:drop-shadow(0 0 3px #65bba555)}
+.body-zone.is-selected{fill:#50d9ad;stroke:#d5ff79;stroke-width:1.8;filter:drop-shadow(0 0 5px #b7f34a40)}
+.body-contours{fill:none;stroke:#92a7b0;stroke-width:.8;stroke-linecap:round;stroke-linejoin:round;opacity:.42;pointer-events:none}
+.body-labels{fill:#e0e9e8;opacity:.65;font-size:5.6px;font-weight:800;letter-spacing:.55px;text-anchor:middle;pointer-events:none}
+.body-legend{max-width:260px;margin:0 auto}
+.body-view-toggle .p{min-width:82px}
+@media(max-width:700px){.body-map{max-width:275px}.body-visual-panel{padding:8px}.body-labels{font-size:5.4px}}
 </style>
 </head>
 <body><div id="app"></div><div id="toast" role="status" aria-live="polite"></div><div id="rest" aria-live="polite"></div>
@@ -477,7 +490,7 @@ function bodyTracker(){
  musclePath('Abdos','M108 109 L132 109 L136 155 L104 155 Z')+
  musclePath('Quadriceps','M99 163 L118 163 L112 220 L99 244 L94 218 Z')+musclePath('Quadriceps','M122 163 L141 163 L146 218 L141 244 L128 220 Z')+
  musclePath('Mollets','M95 244 L111 244 L104 286 L91 286 Z')+musclePath('Mollets','M129 244 L145 244 L149 286 L136 286 Z')+
- '</g><text x="120" y="319" text-anchor="middle" class="body-svg-caption">ZONES SCHÉMATIQUES</text></svg>';
+ '<g class="body-contours" aria-hidden="true"><path d="M108 60 Q120 65 132 60 M101 76 Q111 69 120 75 Q129 69 139 76 M120 78 L120 106 M108 112 L108 151 M114 111 L114 151 M126 111 L126 151 M132 112 L132 151 M104 130 Q120 135 136 130 M103 144 Q120 149 137 144 M99 171 Q108 177 117 171 M123 171 Q132 177 141 171 M99 190 L116 192 M124 192 L141 190 M97 212 Q106 216 114 212 M126 212 Q134 216 143 212 M99 251 L109 251 M131 251 L141 251 M97 263 Q103 267 108 263 M132 263 Q137 267 143 263 M73 119 L81 122 M159 122 L167 119"/></g><g class="body-labels" aria-hidden="true"><text x="120" y="94">PECTORAUX</text><text x="120" y="132">ABDOS</text><text x="120" y="202">QUADRICEPS</text></g><text x="120" y="319" text-anchor="middle" class="body-svg-caption">ZONES SCHÉMATIQUES</text></svg>';
  }else{
  svg='<svg viewBox="0 0 240 330" class="body-map" role="group" aria-label="Carte musculaire, vue de dos"><g class="body-base"><circle cx="120" cy="28" r="17"/><path d="M108 45 L106 57 Q90 56 79 68 L61 119 Q57 130 65 133 Q72 135 76 125 L92 91 L89 126 L98 161 L91 218 L83 286 Q82 297 92 298 Q101 299 104 286 L118 218 L122 218 L136 286 Q139 299 148 298 Q158 297 157 286 L149 218 L142 161 L151 126 L148 91 L164 125 Q168 135 175 133 Q183 130 179 119 L161 68 Q150 56 134 57 L132 45 Z"/></g><g class="body-zones">'+
  musclePath('Épaules','M91 65 Q99 58 108 64 L106 82 Q98 91 88 81 Z')+musclePath('Épaules','M132 64 Q141 58 149 65 L152 81 Q142 91 134 82 Z')+
@@ -486,7 +499,7 @@ function bodyTracker(){
  musclePath('Fessiers','M99 142 Q109 134 119 143 L118 166 L99 165 Z')+musclePath('Fessiers','M121 143 Q131 134 141 142 L141 165 L122 166 Z')+
  musclePath('Ischios','M99 166 L118 166 L112 220 L99 244 L94 218 Z')+musclePath('Ischios','M122 166 L141 166 L146 218 L141 244 L128 220 Z')+
  musclePath('Mollets','M95 244 L111 244 L104 286 L91 286 Z')+musclePath('Mollets','M129 244 L145 244 L149 286 L136 286 Z')+
- '</g><text x="120" y="319" text-anchor="middle" class="body-svg-caption">ZONES SCHÉMATIQUES</text></svg>';
+ '<g class="body-contours" aria-hidden="true"><path d="M108 60 Q120 65 132 60 M120 70 L120 133 M105 81 Q113 95 111 115 M135 81 Q127 95 129 115 M101 92 Q110 104 116 121 M139 92 Q130 104 124 121 M104 143 Q109 151 117 150 M123 150 Q131 151 136 143 M101 157 Q110 162 118 158 M122 158 Q130 162 139 157 M100 177 L116 183 M124 183 L140 177 M98 198 L114 203 M126 203 L142 198 M97 218 Q105 224 113 218 M127 218 Q135 224 143 218 M99 251 L109 251 M131 251 L141 251 M97 263 Q103 267 108 263 M132 263 Q137 267 143 263 M73 119 L81 122 M159 122 L167 119"/></g><g class="body-labels" aria-hidden="true"><text x="120" y="101">DOS</text><text x="120" y="153">FESSIERS</text><text x="120" y="202">ISCHIOS</text></g><text x="120" y="319" text-anchor="middle" class="body-svg-caption">ZONES SCHÉMATIQUES</text></svg>';
  }
  const options=groups.map(g=>'<button type="button" class="muscle-chip'+selected(g)+'" data-muscle="'+g+'" onclick="selectMuscle(this.dataset.muscle)">'+g+'</button>').join('');
  const recoveryCards=groups.map(g=>{const inf=MUSCLE_RECOVERY[g],items=S.sets.filter(x=>grpOf(x.ex)===g&&x.d).sort((a,b)=>b.d.localeCompare(a.d)),recent=items[0],d=recent?Math.max(0,Math.floor((new Date(today+'T12:00:00')-new Date(recent.d+'T12:00:00'))/86400000)):null,h=d===null?null:d*24,st=h===null?'À suivre':h<inf.min?'Repos':h<inf.max?'Récupération':'Disponible',tone=h===null?'unknown':h<inf.min?'rest':h<inf.max?'window':'ready';return '<button type="button" class="recovery-card '+tone+(g===selectedMuscle?' selected':'')+'" data-muscle="'+g+'" onclick="selectMuscle(this.dataset.muscle)"><span class="recovery-card-top"><b>'+g+'</b><i class="recovery-dot"></i></span><strong>'+st+'</strong><small>'+(recent?'Dernière séance · '+fd(recent.d):'Pas encore de séance')+'</small><span class="recovery-card-foot">'+(h===null?'Enregistre une séance':h<inf.min?'Repère : '+inf.min+' h':h<inf.max?'Repère : '+inf.max+' h':'Repère atteint')+'</span></button>'}).join('');
