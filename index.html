@@ -281,6 +281,59 @@ details.ux-fold[open]>summary{border-bottom:1px solid #263641;color:var(--b)}
 @media(max-width:760px){.recipe-layout-premium{grid-template-columns:1fr}.recipe-hero{min-height:0;padding:19px;gap:10px}.recipe-hero-mark{flex-basis:62px;width:62px;height:62px;border-radius:20px;font-size:39px}.recipe-hero .hero-sub{font-size:12px}.recipe-card-premium .recipe-add-row{grid-template-columns:1fr 1fr}.recipe-card-premium .recipe-add-button{grid-column:1/-1;width:100%;min-height:44px}.recipe-card-premium .recipe-nutrition{gap:5px}.recipe-card-premium .recipe-nutrition>div{padding:9px 2px}}
 @media(max-width:390px){.recipe-hero-mark{display:none}.recipe-card-premium{padding:12px}.recipe-card-premium .recipe-add-row{gap:6px}}
 
+
+/* V12.4 — langage visuel commun à toutes les pages */
+:root{--accent-soft:#c5ff4a18;--accent-line:#c5ff4a38;--surface-raised:#192630;--surface-inset:#0b131a}
+.card{isolation:isolate;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.card h2{position:relative;gap:9px}
+.card h2:before{content:"";display:inline-block;flex:0 0 7px;width:7px;height:19px;border-radius:5px;background:linear-gradient(180deg,var(--b),#42d6a4);box-shadow:0 0 12px #c5ff4a30}
+.card h2 .tag,.card h2 .mu{margin-left:auto}
+.hero:not(.premium-hero):not(.recipe-hero){position:relative;isolation:isolate;overflow:hidden;border:1px solid #c5ff4a28;border-radius:19px;padding:22px 24px;background:radial-gradient(ellipse at 95% 10%,#c5ff4a16,transparent 34%),linear-gradient(125deg,#192b29,#14212a 62%,#111821);box-shadow:0 12px 28px #0002}
+.hero:not(.premium-hero):not(.recipe-hero):after{content:"";position:absolute;z-index:-1;right:24px;top:50%;width:88px;height:88px;transform:translateY(-50%) rotate(28deg);border:1px solid #c5ff4a24;border-radius:25px;box-shadow:0 0 0 12px #c5ff4a07,0 0 0 25px #c5ff4a05;pointer-events:none}
+.hero-kicker{display:inline-flex;align-items:center;gap:7px;color:var(--b);font-size:10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+.hero-kicker:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--b);box-shadow:0 0 8px #c5ff4a90}
+.hero-title{position:relative;z-index:1;font-weight:850;letter-spacing:-.045em}
+.hero-sub{position:relative;z-index:1;max-width:650px;color:#b6c4cc}
+.metric,.bt-mini,.body-stat{border-color:#2b3b47;background:linear-gradient(145deg,#1a2731,#111a22);border-radius:14px}
+.li{border-color:#2a3b47;background:linear-gradient(90deg,#ffffff03,transparent);border-radius:10px;transition:background .16s,border-color .16s}
+.li:hover{background:#c5ff4a08;border-color:#3d5360}
+.bar{height:8px;border-radius:99px;background:#293945;overflow:hidden}
+.bar i{border-radius:99px;background:linear-gradient(90deg,var(--b),var(--m));box-shadow:0 0 10px #c5ff4a30}
+.p{font-weight:750;letter-spacing:-.01em;background:linear-gradient(135deg,#d2ff70,#b7f34a);box-shadow:0 4px 14px #b7f34a12}
+.p.secondary{box-shadow:none}
+.p.orange{background:linear-gradient(135deg,#ff986e,#ff6b35)}
+.quick-actions{margin:14px 0}
+.quick-action{position:relative;overflow:hidden;border:1px solid #30424d;border-radius:15px;background:linear-gradient(145deg,#192630,#111a22);box-shadow:0 7px 18px #0002;transition:transform .18s,border-color .18s,background .18s}
+.quick-action:after{content:"";position:absolute;width:78px;height:78px;right:-34px;top:-40px;border:1px solid #c5ff4a16;border-radius:50%;box-shadow:0 0 0 12px #c5ff4a05;pointer-events:none}
+.quick-action:hover{transform:translateY(-2px);border-color:#c5ff4a55}
+.quick-action .qa-icon{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:#c5ff4a14;border:1px solid #c5ff4a26;color:var(--b);font-size:18px}
+.quick-action.primary{border-color:#c5ff4a55;background:linear-gradient(145deg,#233529,#14221e)}
+.quick-action b{font-size:12px}.quick-action small{font-size:10px;color:var(--mute)}
+.daily-plan{border-color:#c5ff4a30;background:radial-gradient(ellipse at 100% 0%,#c5ff4a0b,transparent 34%),linear-gradient(145deg,#17251f,#111a22)}
+.daily-goal{padding:10px 0;border-bottom:1px solid #ffffff0a}.daily-goal:last-child{border-bottom:0}
+.bt-snapshot{background:radial-gradient(ellipse at 100% 0%,#c5ff4a0b,transparent 34%),linear-gradient(145deg,#17251f,#111a22)}
+.bt-mini{padding:12px}
+.body-stat{transition:transform .16s,border-color .16s,background .16s}
+.body-stat.selected{border-color:#c5ff4a88;background:linear-gradient(145deg,#263b2d,#14221e);box-shadow:0 0 0 1px #c5ff4a20}
+.body-marker circle{fill:#c5ff4a;stroke:#0d1718;stroke-width:2;filter:drop-shadow(0 0 5px #c5ff4a66)}
+body svg[role="img"]{display:block;width:100%;max-height:190px;overflow:visible}
+.card>svg[viewBox]{padding:8px 2px;border-radius:12px;background:linear-gradient(180deg,#0b141b,#101922)}
+.card>svg[viewBox] polyline{filter:drop-shadow(0 0 3px currentColor)}
+.card>svg[viewBox] circle:not([fill="transparent"]){stroke:#0d151c;stroke-width:1.5}
+.recipe-card-premium,.recent-food-card,.meal-slot-chip{transition:transform .16s,border-color .16s,background .16s}
+.recipe-card-premium:hover{border-color:#c5ff4a55}
+.recipe-card-premium .recipe-icon{box-shadow:inset 0 0 14px #c5ff4a0c}
+input,select,textarea{border-radius:11px;border-color:#30424f;background:#0b141b}
+input:focus,select:focus,textarea:focus{border-color:#c5ff4a88;box-shadow:0 0 0 3px #c5ff4a12;outline:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #c5ff4a;outline-offset:3px}
+.bnav{background:rgba(9,13,18,.94);backdrop-filter:blur(18px);border-top:1px solid #2a3a45}
+.bnav button{transition:color .16s,background .16s}
+.bnav button.on{color:var(--b);background:linear-gradient(180deg,#c5ff4a0d,transparent)}
+.bnav button.on svg{filter:drop-shadow(0 0 5px #c5ff4a55)}
+@media(hover:hover){.card:hover{border-color:#354957}.metric:hover,.bt-mini:hover{border-color:#435967}}
+@media(max-width:700px){.hero:not(.premium-hero):not(.recipe-hero){padding:18px 17px}.hero:not(.premium-hero):not(.recipe-hero):after{right:10px;width:58px;height:58px}.hero:not(.premium-hero):not(.recipe-hero) .hero-title{max-width:78%;font-size:25px}.card h2:before{height:16px}.quick-action{padding:10px}.quick-action .qa-icon{width:31px;height:31px;flex-basis:31px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
 </style>
 </head>
 <body><div id="app"></div><div id="toast" role="status" aria-live="polite"></div><div id="rest" aria-live="polite"></div>
@@ -675,7 +728,7 @@ let tx0=0,ty0=0;document.addEventListener('touchstart',e=>{const t=e.changedTouc
 document.addEventListener('touchend',e=>{if(tab!=='jour'||(e.target.closest&&e.target.closest('input,select,textarea,svg,details,button')))return;const t=e.changedTouches[0],dx=t.clientX-tx0,dy=t.clientY-ty0;if(Math.abs(dx)>90&&Math.abs(dy)<45)shiftDay(dx<0?1:-1)},{passive:true});
 const TABS=[['jour',"Aujourd'hui"],['force','Musculation'],['mes','Mesures'],['evo','Évolution'],['plus','Plus']];
 let uxOpenSections={};
-function render(){document.querySelectorAll('main details[data-ux-key][open]').forEach(d=>uxOpenSections[d.dataset.uxKey]=true);const same=tab===lastTab,y=same?window.scrollY:0,snap=KEEP&&same?[...document.querySelectorAll('main [name]')].filter(e=>e.value&&e.form&&e.type!=='date').map(e=>[e.form.id||'',e.name,e.value]):[];KEEP=0;lastTab=tab;$('#app').innerHTML=`<header><h1>Suivi Forme <span class="tag">V12.3 · PREMIUM</span></h1><nav>${TABS.map(([k,l])=>`<button class="${k===tab?'on':''}" onclick="tab='${k}';render()">${l}</button>`).join('')}</nav></header><main>${({jour:vJour,mes:vMes,force:vForce,recettes:vRecettes,cardio:vCardio,evo:vEvo,cal:vCalendrier,ph:vPh,pro:vPro,plus:vPlus}[tab]||vJour)()}</main>${bnav()}${tab==='jour'?'<button class="fab" aria-label="Ajouter un aliment" onclick="fabGo()">+</button>':''}`;document.querySelectorAll('main details[data-ux-key]').forEach(d=>{if(uxOpenSections[d.dataset.uxKey])d.open=true});snap.forEach(([fi,nm,v])=>{const e=[...document.querySelectorAll('main [name="'+nm+'"]')].find(x=>x.form&&(x.form.id||'')===fi);if(e&&!e.value&&e.tagName!=='SELECT')e.value=v});window.scrollTo(0,y);if(QS&&$('#qsr'))qsDraw();if(tab==='ph')loadPhotos()}
+function render(){document.querySelectorAll('main details[data-ux-key][open]').forEach(d=>uxOpenSections[d.dataset.uxKey]=true);const same=tab===lastTab,y=same?window.scrollY:0,snap=KEEP&&same?[...document.querySelectorAll('main [name]')].filter(e=>e.value&&e.form&&e.type!=='date').map(e=>[e.form.id||'',e.name,e.value]):[];KEEP=0;lastTab=tab;$('#app').innerHTML=`<header><h1>Suivi Forme <span class="tag">V12.4 · PREMIUM</span></h1><nav>${TABS.map(([k,l])=>`<button class="${k===tab?'on':''}" onclick="tab='${k}';render()">${l}</button>`).join('')}</nav></header><main>${({jour:vJour,mes:vMes,force:vForce,recettes:vRecettes,cardio:vCardio,evo:vEvo,cal:vCalendrier,ph:vPh,pro:vPro,plus:vPlus}[tab]||vJour)()}</main>${bnav()}${tab==='jour'?'<button class="fab" aria-label="Ajouter un aliment" onclick="fabGo()">+</button>':''}`;document.querySelectorAll('main details[data-ux-key]').forEach(d=>{if(uxOpenSections[d.dataset.uxKey])d.open=true});snap.forEach(([fi,nm,v])=>{const e=[...document.querySelectorAll('main [name="'+nm+'"]')].find(x=>x.form&&(x.form.id||'')===fi);if(e&&!e.value&&e.tagName!=='SELECT')e.value=v});window.scrollTo(0,y);if(QS&&$('#qsr'))qsDraw();if(tab==='ph')loadPhotos()}
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 try{if("serviceWorker"in navigator&&location.protocol.indexOf("http")===0)navigator.serviceWorker.register("sw.js")}catch(e){}
 render();
