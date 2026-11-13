@@ -6,7 +6,7 @@ const ACT=[["Musculation",5],["Musculation intense",6],["Course 10 km/h",10],["C
 const MF=[['w','Poids','kg'],['wrist','Poignet','cm'],['neck','Cou','cm'],['chest','Pec','cm'],['arm','Bras','cm'],['waist','Taille (nombril)','cm'],['hip','Hanches','cm'],['thigh','Cuisse','cm'],['calf','Mollet','cm']];
 const SLOTS=['Petit-déj','Déjeuner','Collation','Dîner','Autre'];
 let EXS=[];
-const DEF=()=>({lastSessionId:null,p:{h:'',age:'',sex:'M',act:1.375,goal:0,gw:'',pk:1.8,eb:50,wg:4},meas:[],meals:[],work:[],foods:[],sets:[],water:{},recipes:[],plans:[],cardio:[]});
+const DEF=()=>({lastSessionId:null,p:{h:'',age:'',sex:'M',act:1.375,goal:0,gw:'',pk:1.8,eb:50,wg:4},meas:[],meals:[],work:[],foods:[],sets:[],water:{},recipes:[],plans:[],sessions:[],cardio:[]});
 let S,day=localDate(),tab='jour',mealEdit=null,setEdit=null,workEdit=null,OFF=[],PH=[],cmp=[null,null],photoUrls=[],DB;
 function localDate(d=new Date()){return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
 const n=v=>{if(v===null||v===undefined||String(v).trim()==='')return NaN;return parseFloat(String(v).replace(',','.'))},ok=v=>typeof v==='number'&&Number.isFinite(v),r=(v,d=0)=>ok(v)?v.toFixed(d).replace('.',','):'—',sg=v=>(v>=0?'+':'')+r(v,1),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),sum=(a,k)=>a.reduce((s,x)=>s+(ok(x[k])?x[k]:0),0),fd=d=>d?new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}):'—',pv=k=>ok(n(S.p[k]))?n(S.p[k]):'';
