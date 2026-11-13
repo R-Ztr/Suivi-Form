@@ -314,3 +314,256 @@ label{font-size:13px}
 .workout-set-field{position:relative}
 .workout-set-row>b{padding-top:0;align-self:center}
 .workout-set-row>.x{align-self:center}
+
+
+/* V17 — direction visuelle premium : inspiration Hevy / Strong */
+:root{
+  --bg:#080c10;
+  --surface-1:#111820;
+  --surface-2:#0c131a;
+  --line:#26333d;
+  --line-soft:#1c2932;
+  --b:#c7ff52;
+  --m:#56dfb0;
+  --ink:#f3f6f7;
+  --mute:#96a5ae;
+  --r-card:20px;
+  --r-ctl:13px;
+  --shadow-premium:0 18px 48px rgba(0,0,0,.24);
+}
+body{
+  background:
+    radial-gradient(ellipse 85% 34% at 50% -12%,rgba(111,155,91,.14),transparent 72%),
+    linear-gradient(180deg,#0a1015 0%,var(--bg) 42%);
+  letter-spacing:-.015em;
+}
+header{
+  background:rgba(8,12,16,.9);
+  border-bottom:1px solid rgba(199,255,82,.12);
+  backdrop-filter:blur(22px);
+}
+header h1{font-size:21px;letter-spacing:-.055em}
+header h1:before{box-shadow:0 0 24px rgba(199,255,82,.15)}
+main{max-width:1120px}
+.card{
+  background:linear-gradient(145deg,rgba(20,30,39,.98),rgba(14,21,28,.98));
+  border:1px solid rgba(151,174,184,.13);
+  border-radius:20px;
+  box-shadow:var(--shadow-premium);
+}
+.card h2{font-size:16px;letter-spacing:-.035em}
+.hero{
+  border:1px solid rgba(199,255,82,.22);
+  background:
+    radial-gradient(ellipse at 88% 10%,rgba(199,255,82,.16),transparent 42%),
+    linear-gradient(120deg,#19291f 0%,#121d23 58%,#111820 100%);
+  border-radius:22px;
+}
+.p{border-radius:13px;font-weight:800;letter-spacing:-.01em}
+.p:not(.secondary){background:linear-gradient(135deg,#d4ff75,#b8f13e);color:#11190b}
+.p.secondary{background:#18232c;border:1px solid #34434e;color:#e9eff1}
+input,select,textarea{
+  background:#0a1117;
+  border:1px solid #30404b;
+  border-radius:13px;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--b);
+  box-shadow:0 0 0 3px rgba(199,255,82,.12);
+}
+.bnav{border-top:1px solid rgba(199,255,82,.15)!important;background:rgba(8,12,16,.94)!important}
+.bnav button.on{color:var(--b)!important}
+
+/* Accueil musculation */
+.workout-hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:190px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:26px clamp(20px,4vw,34px);
+  border:1px solid rgba(199,255,82,.28);
+  border-radius:24px;
+  background:
+    radial-gradient(ellipse at 84% 42%,rgba(199,255,82,.18),transparent 38%),
+    radial-gradient(ellipse at 100% 0%,rgba(86,223,176,.12),transparent 40%),
+    linear-gradient(115deg,#17251d 0%,#121d23 58%,#111820 100%);
+  box-shadow:0 18px 48px rgba(0,0,0,.25);
+}
+.workout-hero:after{
+  content:"SF";
+  position:absolute;
+  z-index:-1;
+  right:22px;
+  bottom:-48px;
+  font-size:clamp(130px,22vw,220px);
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-.12em;
+  color:rgba(199,255,82,.045);
+  pointer-events:none;
+}
+.workout-hero .hero-kicker{
+  color:var(--b);
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.workout-hero h2{
+  margin:8px 0 5px;
+  font-size:clamp(29px,5vw,43px);
+  font-weight:900;
+  line-height:1.02;
+  letter-spacing:-.065em;
+}
+.workout-hero p{max-width:460px;font-size:14px;color:#aab8bd;line-height:1.5}
+.workout-type-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.workout-type-card{
+  position:relative;
+  overflow:hidden;
+  min-height:132px;
+  padding:16px;
+  gap:8px;
+  border:1px solid #2b3943;
+  border-radius:17px;
+  background:linear-gradient(145deg,#17222b,#10171e 82%);
+  transition:border-color .18s,transform .18s,background .18s;
+}
+.workout-type-card:after{
+  content:"";
+  position:absolute;
+  width:90px;height:90px;
+  right:-40px;bottom:-45px;
+  border-radius:50%;
+  background:rgba(199,255,82,.055);
+  pointer-events:none;
+}
+.workout-type-card:hover,.workout-type-card:focus-visible{
+  border-color:rgba(199,255,82,.65);
+  background:linear-gradient(145deg,#1b2b24,#111a20 82%);
+}
+.workout-type-icon{
+  width:35px;height:35px;
+  border:1px solid rgba(199,255,82,.22);
+  border-radius:11px;
+  background:rgba(199,255,82,.1);
+  color:var(--b);
+  font-size:19px;
+}
+.workout-type-card b{font-size:16px;letter-spacing:-.025em}
+.workout-type-card small{font-size:12px;line-height:1.4;color:#9cabb3}
+.workout-free-link{
+  width:100%;
+  min-height:48px;
+  margin:12px 0 0;
+  border:1px dashed #3a4a54;
+  border-radius:13px;
+  color:var(--b);
+  background:#0d151b;
+  font-size:13px;
+}
+.workout-date{max-width:100%;margin-top:14px}
+.workout-history{background:linear-gradient(145deg,#141e27,#10171e)}
+.workout-history-row{padding:15px 2px}
+.workout-history-row b{font-size:14px}
+
+/* Séance active : écran de saisie */
+.workout-active-head{
+  align-items:center;
+  padding:10px 2px 18px;
+}
+.workout-active-head h2{
+  font-size:clamp(27px,4vw,36px);
+  font-weight:900;
+  letter-spacing:-.06em;
+}
+.workout-active-head .hero-kicker{color:var(--b);font-weight:850}
+.workout-date-card{
+  align-items:center;
+  padding:17px;
+  border-color:rgba(199,255,82,.18);
+  background:linear-gradient(120deg,#17241e,#111a21 70%);
+}
+.workout-progress .split{font-size:12px;margin-bottom:7px}
+.workout-progress .split b{color:var(--b)}
+.workout-progress .bar{height:8px;background:#2b3a3d}
+.workout-progress .bar i{background:linear-gradient(90deg,#c7ff52,#56dfb0)}
+.workout-ex-card{
+  padding:17px;
+  border-radius:18px;
+  border-color:#2a3943;
+  background:linear-gradient(145deg,#17222b,#10171e 85%);
+  box-shadow:0 10px 28px rgba(0,0,0,.16);
+}
+.workout-ex-head h3{font-size:17px;font-weight:800;letter-spacing:-.03em}
+.workout-ex-head .tag{border-color:rgba(199,255,82,.22);color:var(--b);background:rgba(199,255,82,.06)}
+.workout-set-head{color:#8fa0aa;font-size:10px;letter-spacing:.04em}
+.workout-set-row{gap:9px;padding:7px 0}
+.workout-set-row>b{font-size:13px;color:#9eafb7}
+.workout-set-field input{
+  min-height:51px!important;
+  border-radius:12px;
+  background:#0b1218;
+  border-color:#33434e;
+  font-size:17px!important;
+  font-weight:800;
+}
+.workout-add-set{
+  margin-top:9px;
+  padding:11px 14px;
+  border:1px solid rgba(199,255,82,.2);
+  border-radius:11px;
+  background:rgba(199,255,82,.07);
+}
+.workout-picker{
+  border-color:#34434b;
+  background:linear-gradient(145deg,#17222b,#10171e);
+  border-radius:17px;
+}
+.workout-picker>summary{min-height:66px}
+.workout-picker>summary b{font-size:15px}
+.workout-picker>summary small{font-size:12px}
+.workout-machine{
+  min-height:62px;
+  padding:11px;
+  border-radius:13px;
+  background:#0c141a;
+  border-color:#2a3943;
+}
+.workout-machine-copy b{font-size:13px}
+.workout-machine-icon{
+  width:38px;height:38px;flex-basis:38px;
+  border:1px solid rgba(199,255,82,.15);
+  background:rgba(199,255,82,.08);
+  border-radius:11px;
+}
+.workout-finish{
+  border-color:rgba(199,255,82,.28);
+  background:linear-gradient(145deg,#19271f,#111a20);
+}
+.workout-finish .p{min-height:54px;font-size:16px}
+.workout-finish .p:disabled{opacity:.4;cursor:not-allowed}
+
+/* Petits écrans : priorité aux zones tactiles et au confort */
+@media(max-width:700px){
+  main{padding-left:12px;padding-right:12px}
+  .workout-hero{min-height:178px;padding:23px 20px;border-radius:21px}
+  .workout-type-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .workout-type-card{min-height:122px;padding:14px}
+  .workout-date-card{gap:12px}
+  .workout-active-head{align-items:flex-start}
+  .workout-ex-card{padding:14px}
+  .workout-set-head,.workout-set-row{gap:5px}
+  .workout-set-field input{min-height:49px!important}
+}
+@media(max-width:380px){
+  .workout-type-card{min-height:116px;padding:12px}
+  .workout-type-card b{font-size:15px}
+  .workout-set-head,.workout-set-row{grid-template-columns:23px minmax(0,1fr) minmax(0,1fr) 24px}
+}
+@media(hover:none){
+  .workout-type-card:hover,.workout-machine:hover{transform:none}
+}
