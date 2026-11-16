@@ -175,7 +175,7 @@ const PPL_ROUTINES={
  ]},
  PULL:{label:'Pull',focus:'Dos · biceps · arrière d’épaules',exercises:[
   {name:'Rowing convergent',group:'Dos',sets:2,reps:10,min:8,max:12},
-  {name:'Tirage vertical machine',group:'Dos',sets:2,reps:10,min:8,max:12},
+  {name:'Tirage vertical à barre (Lat Pulldown)',group:'Dos',sets:2,reps:10,min:8,max:12},
   {name:'Curl biceps machine',group:'Biceps',sets:2,reps:12,min:10,max:15},
   {name:'Oiseau machine / Reverse pec deck',group:'Épaules',sets:2,reps:12,min:12,max:15}
  ]},
@@ -477,7 +477,7 @@ const EXTRA_EQUIPMENT={
 Object.entries(EXTRA_EXERCISES).forEach(([g,names])=>names.forEach(nm=>{const code=EXTRA_EQUIPMENT[nm]||'C';if(!LIBS[g].split(',').some(x=>fold(x.split('|')[0])===fold(nm)))LIBS[g]+=','+nm+'|'+code}));
 const MACHINE_LIBRARY={
  Pectoraux:['Chest press','Chest press convergente','Développé incliné machine','Développé décliné machine','Pec deck / Butterfly','Écarté pectoraux machine'],
- Dos:['Rowing assis machine','Rowing convergent','High row machine','Tirage vertical machine','Pullover machine','Machine lombaires'],
+ Dos:['Rowing assis machine','Rowing convergent','High row machine','Tirage vertical à barre (Lat Pulldown)','Tirage vertical divergent (2 poignées)','Pullover machine','Machine lombaires'],
  Épaules:['Développé épaules machine','Élévations latérales machine','Oiseau machine / Reverse pec deck','Shrug machine'],
  Biceps:['Curl biceps machine','Curl pupitre machine'],
  Triceps:['Extension triceps machine','Dips assistés machine'],
