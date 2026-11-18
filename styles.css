@@ -587,3 +587,24 @@ input:focus,select:focus,textarea:focus{
 .ppl-routine-card .p{width:100%;font-size:12px}
 .ppl-note{margin:13px 0 0;line-height:1.55}
 @media(max-width:700px){.ppl-routine-grid{grid-template-columns:1fr}.ppl-routine-card>p{min-height:0}.ppl-routine-card{padding:14px}}
+
+/* V19 — historique complet des séances, consultable par date */
+.workout-history-tools{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:10px 0 16px}
+.workout-history-tools label{display:block;flex:1;min-width:180px;margin:0;color:var(--mute);font-size:12px}
+.workout-history-tools input{display:block;width:100%;margin-top:5px}
+.workout-history-day{padding:12px 0;border-top:1px solid var(--line)}
+.workout-history-day>h3{margin:0 0 9px;font-size:13px;color:var(--b)}
+.workout-history-entry{margin:8px 0;border:1px solid var(--line);border-radius:13px;background:var(--surface-2,#0c131a);overflow:hidden}
+.workout-history-entry>summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px;cursor:pointer;list-style:none}
+.workout-history-entry>summary::-webkit-details-marker{display:none}
+.workout-history-entry>summary b,.workout-history-entry>summary small{display:block}
+.workout-history-entry>summary b{font-size:14px}
+.workout-history-entry>summary small{margin-top:4px;color:var(--mute);font-size:11px}
+.workout-history-open{flex:0 0 auto;color:var(--b);font-size:12px;font-weight:750}
+.workout-history-detail{padding:0 13px 13px}
+.workout-history-ex{padding:10px 0;border-top:1px solid #ffffff12}
+.workout-history-ex>b{font-size:13px}
+.workout-history-sets{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.workout-set-pill{display:inline-block;padding:6px 8px;border-radius:8px;background:#17232b;color:#dce6e9;font-size:11px;font-variant-numeric:tabular-nums}
+.workout-history-volume{padding-top:10px;border-top:1px solid #ffffff12;color:var(--mute);font-size:12px}
+.workout-history-volume b{color:var(--b)}
