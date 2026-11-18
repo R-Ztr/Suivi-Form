@@ -143,7 +143,7 @@ function cancelWorkout(){if(!confirm('Abandonner cette séance en cours ?'))retu
 function lastSetsFor(nm){const f=fold(nm),M=x=>({kg:String(x.kg),reps:String(x.reps),rir:x.rir==null?'':String(x.rir)});for(let i=(S.sessions||[]).length-1;i>=0;i--){const e=(S.sessions[i].exercises||[]).find(x=>fold(x.name)===f);if(e&&e.sets&&e.sets.length)return e.sets.map(M)}const L=S.sets.filter(x=>fold(x.ex)===f);if(!L.length)return null;const d=L.map(x=>x.d).sort().pop();return L.filter(x=>x.d===d).slice(0,6).map(M)}
 function addWorkoutExerciseName(nm){if(!S.draft)return;const item=LIB.find(x=>fold(x.n)===fold(nm));const group=item?item.g:grpOf(nm);if(S.draft.exercises.some(x=>fold(x.name)===fold(nm))){toast('Cet exercice est déjà dans ta séance');return}S.draft.exercises.push({id:uid(),name:item?item.n:nm,group,sets:lastSetsFor(nm)||[{kg:'',reps:'10',rir:''},{kg:'',reps:'10',rir:''},{kg:'',reps:'10',rir:''}]});workoutSearch='';save();render();if(lastSetsFor(nm))toast('Pré-rempli avec ta dernière séance')}
 function addWorkoutExercise(e){e.preventDefault();const f=e.target,nm=String(f.wxpick.value||'').trim();if(!nm)return;addWorkoutExerciseName(nm)}
-function workoutAllowedGroups(){const t=S.draft&&S.draft.type;if(t==='PUSH')return ['Pectoraux','Épaules','Triceps'];if(t==='PULL')return ['Dos','Biceps'];if(t==='LEGS')return ['Quadriceps','Ischios','Fessiers','Mollets'];if(t==='LOWER')return ['Quadriceps','Ischios','Fessiers','Mollets','Abdos'];if(t==='UPPER')return ['Pectoraux','Dos','Épaules','Biceps','Triceps','Abdos'];return Object.keys(LIBS)}
+function workoutAllowedGroups(){const t=S.draft&&S.draft.type;if(t==='PUSH')return ['Pectoraux','Épaules','Triceps'];if(t==='PULL')return ['Dos','Biceps'];if(t==='LEGS')return ['Quadriceps','Ischios','Fessiers','Mollets'];if(t==='LOWER')return ['Quadriceps','Ischios','Fessiers','Mollets','Abdos'];if(t==='UPPER'||t==='UPPER A'||t==='UPPER B')return ['Pectoraux','Dos','Épaules','Biceps','Triceps'];if(t==='LOWER'||t==='LOWER A'||t==='LOWER B')return ['Quadriceps','Ischios','Fessiers','Mollets','Abdos'];return Object.keys(LIBS)}
 function workoutFilter(g){workoutGroup=g;const el=document.getElementById('workout-machine-list');if(el)el.innerHTML=workoutLibraryHTML();const count=document.getElementById('workout-result-count');if(count)count.textContent=workoutLibraryCount()}
 function workoutEquipFilter(v){workoutEquip=v;const el=document.getElementById('workout-machine-list');if(el)el.innerHTML=workoutLibraryHTML();const count=document.getElementById('workout-result-count');if(count)count.textContent=workoutLibraryCount()}
 function workoutSearchInput(v){workoutSearch=v;const el=document.getElementById('workout-machine-list');if(el)el.innerHTML=workoutLibraryHTML();const count=document.getElementById('workout-result-count');if(count)count.textContent=workoutLibraryCount()}
@@ -223,7 +223,67 @@ function vPPLProgram(){
  }).join('');
  return '<section class="card ppl-program"><div class="split"><div><div class="hero-kicker">PROGRAMME PERSONNALISÉ</div><h2>PPL · Reprise progressive</h2></div><span class="tag good">Machines uniquement</span></div><p class="ppl-intro">Tes trois séances sont préchargées : les exercices, le nombre de séries et les plages de répétitions sont déjà prêts. Tu n’as plus qu’à noter les charges et les répétitions réellement effectuées.</p><div class="ppl-program-meta"><span>3 séances / semaine au départ</span><span>2 séries / exercice</span><span>2–3 RIR</span><span>Environ 60 min max.</span></div><div class="ppl-routine-grid">'+cards+'</div><p class="mu ppl-note">Organisation PPL x2 : Push, Pull, Legs, puis on répète. Garde un jour de repos complet et adapte le volume à ta récupération. Échauffement facile 5–8 min, puis quelques répétitions légères sur la première machine.</p></section>';
 }
-function vForce(){return vSession()+vPPLProgram()+'<details class="ux-fold" data-ux-key="force-tools"><summary>Outils complémentaires <span class="ux-fold-note">Récupération, programme et progression</span></summary><div class="ux-fold-inner">'+bodyTracker()+vWeek()+vForceLegacy()+'</div></details>'}
+
+const UPPER_LOWER_ROUTINES={
+ 'UPPER A':{label:'Upper A',focus:'Pectoraux · dos · épaules · bras',exercises:[
+  {name:'Chest press convergente',group:'Pectoraux',sets:3,reps:10,min:8,max:12},
+  {name:'Tirage vertical à barre (Lat Pulldown)',group:'Dos',sets:3,reps:10,min:8,max:12},
+  {name:'Rowing convergent',group:'Dos',sets:2,reps:10,min:8,max:12},
+  {name:'Développé épaules machine',group:'Épaules',sets:2,reps:10,min:8,max:12},
+  {name:'Oiseau machine / Reverse pec deck',group:'Épaules',sets:2,reps:12,min:12,max:15},
+  {name:'Curl biceps machine',group:'Biceps',sets:2,reps:12,min:10,max:15},
+  {name:'Extension triceps machine',group:'Triceps',sets:2,reps:12,min:10,max:15}
+ ]},
+ 'LOWER A':{label:'Lower A',focus:'Quadriceps · ischios · fessiers · mollets · abdos',exercises:[
+  {name:'Presse à cuisses',group:'Quadriceps',sets:3,reps:10,min:10,max:12},
+  {name:'Leg extension',group:'Quadriceps',sets:2,reps:12,min:10,max:15},
+  {name:'Leg curl assis',group:'Ischios',sets:3,reps:12,min:10,max:15},
+  {name:'Hip thrust machine',group:'Fessiers',sets:2,reps:10,min:8,max:12},
+  {name:'Mollets debout machine',group:'Mollets',sets:2,reps:15,min:12,max:20},
+  {name:'Crunch machine',group:'Abdos',sets:2,reps:12,min:12,max:15}
+ ]},
+ 'UPPER B':{label:'Upper B',focus:'Haut du corps · angles et variantes complémentaires',exercises:[
+  {name:'Développé incliné machine',group:'Pectoraux',sets:3,reps:10,min:8,max:12},
+  {name:'Tirage vertical divergent (2 poignées)',group:'Dos',sets:2,reps:10,min:8,max:12},
+  {name:'Rowing assis machine',group:'Dos',sets:3,reps:10,min:8,max:12},
+  {name:'Élévations latérales machine',group:'Épaules',sets:2,reps:12,min:12,max:15},
+  {name:'Pec deck / Butterfly',group:'Pectoraux',sets:2,reps:12,min:10,max:15},
+  {name:'Curl pupitre machine',group:'Biceps',sets:2,reps:12,min:10,max:15},
+  {name:'Dips assistés machine',group:'Triceps',sets:2,reps:12,min:10,max:15}
+ ]},
+ 'LOWER B':{label:'Lower B',focus:'Quadriceps · chaîne postérieure · hanches · mollets',exercises:[
+  {name:'Hack squat',group:'Quadriceps',sets:3,reps:10,min:8,max:12},
+  {name:'Leg curl allongé',group:'Ischios',sets:3,reps:12,min:10,max:15},
+  {name:'Soulevé de terre roumain haltères',group:'Ischios',sets:2,reps:10,min:8,max:12},
+  {name:'Adducteurs machine',group:'Fessiers',sets:2,reps:12,min:12,max:15},
+  {name:'Abducteurs machine',group:'Fessiers',sets:2,reps:12,min:12,max:15},
+  {name:'Mollets assis machine',group:'Mollets',sets:2,reps:15,min:12,max:20}
+ ]}
+};
+function startUpperLowerWorkout(type){
+ const routine=UPPER_LOWER_ROUTINES[type];if(!routine)return;
+ if(S.draft&&!confirm('Une séance est déjà en cours. La remplacer ?'))return;
+ const exercises=routine.exercises.map(ex=>{
+  const previous=lastSetsFor(ex.name)||[];
+  return{id:uid(),name:ex.name,group:ex.group,sets:Array.from({length:ex.sets},(_,i)=>{
+   const p=previous[i]||{},oldReps=n(p.reps);
+   return{kg:p.kg||'',reps:ok(oldReps)&&oldReps>=ex.min&&oldReps<=ex.max?String(oldReps):String(ex.reps),rir:p.rir||'3'};
+  })};
+ });
+ S.draft={id:uid(),d:day,type,program:'UPPER_LOWER',programLabel:'Upper / Lower · 4 jours',startedAt:new Date().toISOString(),exercises};
+ workoutSearch='';workoutGroup='Tous';workoutEquip='M';save();render();
+}
+function vUpperLowerProgram(){
+ if(S.draft)return '';
+ const cards=Object.entries(UPPER_LOWER_ROUTINES).map(([type,routine])=>{
+  const count=routine.exercises.reduce((n,x)=>n+x.sets,0);
+  const rows=routine.exercises.map(ex=>'<li><span>'+esc(ex.name)+'</span><b>'+ex.sets+' × '+ex.min+'–'+ex.max+'</b></li>').join('');
+  return '<article class="ppl-routine-card"><div class="ppl-routine-head"><div><span class="ppl-routine-kicker">'+type+'</span><h3>'+routine.label+'</h3></div><span class="tag">'+count+' séries</span></div><p>'+routine.focus+'</p><ul>'+rows+'</ul><button type="button" class="p" onclick="startUpperLowerWorkout(\''+type+'\')">Démarrer '+routine.label+'</button></article>';
+ }).join('');
+ return '<section class="card ppl-program"><div class="split"><div><div class="hero-kicker">PROGRAMME PERSONNALISÉ</div><h2>Upper / Lower · 4 jours</h2></div><span class="tag good">Machines prioritaires</span></div><p class="ppl-intro">Quatre séances préchargées pour entraîner chaque groupe musculaire deux fois par semaine. Les charges précédentes sont reprises automatiquement lorsqu’un exercice a déjà été réalisé.</p><div class="ppl-program-meta"><span>4 séances / semaine</span><span>2–3 séries / exercice</span><span>2–3 RIR</span><span>Objectif : ≈ 60 min</span></div><div class="ppl-routine-grid">'+cards+'</div><p class="mu ppl-note">Organisation conseillée : Upper A, Lower A, repos, Upper B, repos, Lower B, repos. Les exercices, séries et répétitions sont des points de départ : ajuste les charges et le temps de repos à ton niveau et au matériel disponible. Le soulevé de terre roumain est le seul mouvement avec haltères prévu dans ce programme.</p></section>';
+}
+
+function vForce(){return vSession()+vPPLProgram()+vUpperLowerProgram()+'<details class="ux-fold" data-ux-key="force-tools"><summary>Outils complémentaires <span class="ux-fold-note">Récupération, programme et progression</span></summary><div class="ux-fold-inner">'+bodyTracker()+vWeek()+vForceLegacy()+'</div></details>'}
 
 let selectedExercise='';
 function vPro(){const o=(a,cur)=>a.map(([v,l])=>`<option value="${v}"${String(v)===String(cur)?' selected':''}>${l}</option>`).join('');const t=targets(),ad=adaptiveAdvice();return `<div class="card"><h2>Profil et objectifs</h2><form onsubmit="savePro(event)"><div class="row"><label>Taille (cm)<input name="h" type="number" min="1" step="0.1" value="${pv('h')}" required></label><label>Âge<input name="age" type="number" min="1" max="120" value="${pv('age')}" required></label><label>Sexe utilisé pour l'estimation<select name="sex">${o([['M','Homme'],['F','Femme']],S.p.sex)}</select></label></div><div class="row" style="margin-top:8px"><label>Activité hors sport<select name="act">${o([[1.2,'Sédentaire'],[1.375,'Légère'],[1.55,'Active'],[1.725,'Très active']],S.p.act)}</select></label><label>Poids cible (kg)<input name="gw" type="number" min="1" step="0.1" value="${pv('gw')}"></label><label>Protéines (g/kg)<input name="pk" type="number" min="0.5" max="3" step="0.1" value="${S.p.pk}"></label><label>Sport ajouté au budget (%)<input name="eb" type="number" min="0" max="100" step="10" value="${S.p.eb}"></label><label>Séances par semaine (objectif)<input name="wg" type="number" min="1" max="7" value="${S.p.wg||4}"></label><label>Surplus / déficit (kcal)<input name="goal" type="number" step="50" value="${S.p.goal}" placeholder="-300 ou +200"></label></div><button class="p">Enregistrer le profil</button></form>${t?`<div class="g3" style="margin-top:16px"><div><div class="mu">Métabolisme de base estimé</div><b>${r(t.bmr)} kcal</b></div><div><div class="mu">Maintien estimé</div><b>${r(t.base)} kcal</b></div><div><div class="mu">Cible configurée</div><b>${r(t.target)} kcal</b></div></div>`:''}<p class="mu">Estimations à partir de Mifflin–St Jeor et d'un facteur d'activité. Ce ne sont pas des mesures directes de ton métabolisme.</p></div><div class="card"><h2>Ajustement indicatif des calories</h2><p>${esc(ad.message)}</p>${ad.trend?`<p class="mu">Tendance estimée : <b>${esc(ad.trend)}</b> · objectif : ${ad.goalType==='perte'?'perte de poids':ad.goalType==='prise'?'prise de poids':'stabilité'}.</p>`:''}<p class="mu">Cette suggestion est volontairement limitée à 100 kcal/j et n’est jamais appliquée automatiquement. Elle dépend de pesées régulières et de repas enregistrés de façon assez complète ; eau, sel, digestion et entraînement peuvent brouiller la tendance.</p>${ad.delta?`<button class="p secondary" onclick="applyAdaptive(${ad.delta})">Appliquer ${ad.delta>0?'+':''}${ad.delta} kcal/j à ma cible</button>`:''}</div><div class="card"><h2>Sauvegardes et données</h2><p class="mu">La sauvegarde simple contient les données de suivi. La sauvegarde complète inclut aussi les photos : le fichier peut être volumineux, conserve-le en lieu sûr et évite de le partager.</p><div class="row"><button class="p" onclick="exp()">Exporter données (JSON)</button><button class="p secondary" onclick="csvOut()">Exporter en CSV (Excel)</button><button class="p" onclick="expFull()">Sauvegarde complète + photos</button><label class="p secondary">Importer données<input type="file" accept=".json,application/json" hidden onchange="imp(this)"></label><label class="p secondary">Restaurer sauvegarde complète<input type="file" accept=".json,application/json" hidden onchange="impFull(this)"></label><button class="p orange" onclick="reset()">Tout effacer</button></div>${bk()}</div><div class="card"><h2>Vie privée</h2><p class="mu">Les photos et données restent dans ce navigateur sauf si tu les exportes ou utilises volontairement une fonction en ligne. La recherche Open Food Facts nécessite une connexion et transmet la requête au service.</p></div>`}
